@@ -12,11 +12,13 @@ namespace s21 {
     };
 
     template <typename T>
-    class Queue {
+    class queue {
     public:
-        Queue();
-        ~Queue();
+        queue();
+        ~queue();
         void push(T value);
+        void pop();
+        T front();
         // Другие методы могут быть здесь объявлены
     private:
         Node<T>* tail;

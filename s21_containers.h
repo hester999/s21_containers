@@ -9,6 +9,7 @@ namespace  s21{
         T value;
         Node<T> * next;
         Node<T> * prev;
+        Node(T value);
     };
 }
 
