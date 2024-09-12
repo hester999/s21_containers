@@ -22,7 +22,7 @@ array(std::initializer_list<value_type> const &items);
 array(const array &a);
 array(array &&a);
 ~array();
-void operator=(array &&a);
+array &operator=(array &&a);
 
 //Element access
 reference at(size_type pos);

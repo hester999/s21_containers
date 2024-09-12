@@ -11,18 +11,37 @@ array<T,amount>::array(){
 
 template <typename T, size_t amount> 
 array<T,amount>::array(std::initializer_list<value_type> const &items){
-
+size_type i = 0;
+  for(const_iterator it = items.begin(); it != items.end() && i < amount; ++it, ++i){
+    usual_array[i] = *it;
+  }
 }
 
 template <typename T, size_t amount> 
 array<T,amount>::array(const array &a){
-    for(size_type i = 0; i < a.amount; i++)
+    for(size_type i = 0; i < amount; i++)
     usual_array[i] = a.usual_array[i];
+}
+
+template<typename T, size_t amount>
+array<T,amount>::array(array &&a){
+for(size_type i = 0; i<amount; ++i){
+usual_array[i] = std::move(a.usual_array[i]);
+}
 }
 
 template <typename T, size_t amount>
 array<T,amount>::~array(){
+}
 
+template <typename T, size_t amount>
+array<T,amount>& array<T,amount>::operator=(array &&a){
+if(this != &a){
+    for(size_type i = 0; i < amount ; ++i){
+        usual_array[i] = std::move(a.usual_array[i]);
+    }
+}
+    return *this;
 }
 
 
