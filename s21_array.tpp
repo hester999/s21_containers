@@ -53,7 +53,11 @@ typename array<T,amount>::reference array<T, amount>::operator[](size_type pos) 
 
 template<typename T, size_t amount>
 typename array<T,amount>::reference array<T,amount>::at(size_type pos){ 
-    return usual_array[pos];}
+    if( pos >= amount){
+        throw std::out_of_range("Index out of range");
+    }
+    return usual_array[pos];
+}
 
 template<typename T, size_t amount>
 typename array<T,amount>::const_reference array<T,amount>::front(){
@@ -69,4 +73,47 @@ template<typename T, size_t amount>
 typename array<T,amount>::iterator array<T,amount>::data(){
     return usual_array;
 }
+
+//Array Iterators
+template<typename T, size_t amount>
+typename array<T,amount>::iterator array<T,amount>::begin(){
+    return usual_array;
+}
+
+template<typename T, size_t amount>
+typename array<T,amount>::iterator array<T,amount>::end(){
+    return usual_array + amount;
+}
+
+//Array Capacity
+template<typename T, size_t amount>
+bool array<T,amount>::empty(){
+  return amount == 0 || usual_array == nullptr;
+}
+
+template<typename T, size_t amount>
+typename array<T,amount>::size_type array<T,amount>::size(){
+    return amount;
+}
+
+template<typename T, size_t amount>
+typename array<T,amount>::size_type array<T,amount>::max_size(){
+    return amount;
+}
+
+//Array Modifiers
+template<typename T, size_t amount>
+void array<T,amount>::swap(array& other){
+for(size_type i = 0; i < amount;++i){
+std::swap(usual_array[i],other[i]);
+}
+}
+
+template<typename T, size_t amount>
+void array<T,amount>::fill(const_reference value){
+    for (size_type i = 0; i <amount; ++i){
+        usual_array[i] = value;
+    }
+}
+
 }
