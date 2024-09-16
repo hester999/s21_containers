@@ -5,7 +5,6 @@
 #include <cstddef>
 
 namespace s21{
-
 template<typename T>
 class vector{
 public:
