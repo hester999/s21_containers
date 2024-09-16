@@ -25,7 +25,6 @@ vector<T>::vector(size_type n) {
   }
 }
 
-
 template <typename T>
 vector<T>::vector(std::initializer_list<value_type> const &items) {
     this->data_ = nullptr;
