@@ -25,21 +25,41 @@ vector<T>::vector(size_type n) {
   }
 }
 
+// template <typename T>
+// vector<T>::vector(std::initializer_list<value_type> const &items) {
+//   this->data_ = nullptr;
+//   this->size_ = 0;
+//   this->capacity_ = 0;
+//   size_type n = items.size();
+//   if (n > 0) {
+//     this->size_ = n;
+//     this->capacity_ = n;
+//     this->data_ = new value_type[capacity_];
+//     size_type i = 0;
+//      std::cout<<n<<"n "<<std::endl;
+//     for (const_iterator it = items.begin(); i<n; ++it, ++i) {
+//       this->data_[i] = *it;
+//       std::cout<<i<<"i "<<*it<<std::endl;
+//     }
+//   }
+// }
+
+
 template <typename T>
 vector<T>::vector(std::initializer_list<value_type> const &items) {
-  this->data_ = nullptr;
-  this->size_ = 0;
-  this->capacity_ = 0;
-  size_type n = items.size();
-  if (n > 0) {
-    this->size_ = n;
-    this->capacity_ = n;
-    this->data_ = new value_type[capacity_];
-    size_type i = 0;
-    for (const_iterator it = items.begin(); it != items.end(); ++it, ++i) {
-      this->data_[i] = *it;
+    this->data_ = nullptr;
+    this->size_ = 0;
+    this->capacity_ = 0;
+    size_type n = items.size();
+    if (n > 0) {
+        this->size_ = n;
+        this->capacity_ = n;
+        this->data_ = new value_type[capacity_];
+        size_type i = 0;
+        for (const_iterator it = items.begin(); it != items.end(); ++it, ++i) {
+            this->data_[i] = *it;
+        }
     }
-  }
 }
 
 template <typename T>
@@ -86,7 +106,7 @@ vector<T> &vector<T>::operator=(vector &&a) {
 
 template<typename T>
 typename vector<T>::reference vector<T>::at(size_type pos){ 
-    if( pos > this->size_){
+    if( pos >= this->size_){
         throw std::out_of_range("Index out of range");
     }
     return this->data_[pos];
