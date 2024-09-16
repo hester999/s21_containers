@@ -25,25 +25,6 @@ vector<T>::vector(size_type n) {
   }
 }
 
-// template <typename T>
-// vector<T>::vector(std::initializer_list<value_type> const &items) {
-//   this->data_ = nullptr;
-//   this->size_ = 0;
-//   this->capacity_ = 0;
-//   size_type n = items.size();
-//   if (n > 0) {
-//     this->size_ = n;
-//     this->capacity_ = n;
-//     this->data_ = new value_type[capacity_];
-//     size_type i = 0;
-//      std::cout<<n<<"n "<<std::endl;
-//     for (const_iterator it = items.begin(); i<n; ++it, ++i) {
-//       this->data_[i] = *it;
-//       std::cout<<i<<"i "<<*it<<std::endl;
-//     }
-//   }
-// }
-
 
 template <typename T>
 vector<T>::vector(std::initializer_list<value_type> const &items) {
