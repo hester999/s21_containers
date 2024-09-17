@@ -84,6 +84,7 @@ vector<T> &vector<T>::operator=(vector &&a) {
   return *this;
 }
 
+//Vector Element access
 template<typename T>
 typename vector<T>::reference vector<T>::at(size_type pos){ 
     if( pos >= this->size_){
@@ -91,6 +92,34 @@ typename vector<T>::reference vector<T>::at(size_type pos){
     }
     return this->data_[pos];
 }
+
+template<typename T>
+typename vector<T>::reference vector<T>::operator[](size_type pos){
+    return this->data_[pos];
+}
+
+template<typename T>
+typename vector<T>::const_reference vector<T>::front(){
+    if(this->size_ == 0){
+         throw std::out_of_range("front: vector empty");
+    }
+    return this->data_[0];
+}
+
+template<typename T>
+typename vector<T>::const_reference vector<T>::back(){
+    if(this->size_ == 0){
+         throw std::out_of_range("back: vector empty");
+    }
+    return this->data_[this->size_- 1];
+}
+
+template<typename T>
+T* vector<T>::data(){
+    return this->data_;
+}
+
+//Допольнительные функции
 template <typename T>
 typename vector<T>::size_type vector<T>::max_size() {
   return std::numeric_limits<size_type>::max() / sizeof(value_type);
