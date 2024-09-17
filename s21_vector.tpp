@@ -119,6 +119,17 @@ T* vector<T>::data(){
     return this->data_;
 }
 
+//Vector Iterators
+template<typename T>
+typename vector<T>::iterator vector<T>::begin(){
+    return this->data_;
+}
+
+template<typename T>
+typename vector<T>::iterator vector<T>::end(){
+    return (this->data_+this->size_);
+}
+
 //Допольнительные функции
 template <typename T>
 typename vector<T>::size_type vector<T>::max_size() {
