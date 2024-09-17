@@ -176,6 +176,28 @@ void vector<T>::shrink_to_fit(){
 }
 
 
+//Vector Modifiers
+template<typename T>
+void vector<T>::clear(){
+    for(size_type i = 0; i < this->size_; ++i){
+        this->data_[i].~T();
+    }
+    this->size_ = 0;
+}
+
+template<typename T>
+typename vector<T>::iterator vector<T>::insert(iterator pos, const_reference value){
+
+    size_type index = pos - data_;
+    if(this->size_ >= this->capacity_){
+        reserve(this->capacity_*2);
+    }
+    for(size_type i = size_; i>index;--i){
+        this->data_[i] = std::move(this->data_[i-1]);
+    }
+    this->data_[index] = value;
+}
+
 //Допольнительные функции
 template <typename T>
 typename vector<T>::size_type vector<T>::max_size() {
