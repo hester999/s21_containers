@@ -130,6 +130,52 @@ typename vector<T>::iterator vector<T>::end(){
     return (this->data_+this->size_);
 }
 
+//Vector Capacity
+template<typename T>
+bool vector<T>::empty(){
+    return this->size_ == 0;
+}
+
+template<typename T>
+typename vector<T>::size_type vector<T>::size(){
+    return this->size_;
+}
+
+template<typename T>
+typename vector<T>::size_type vector<T>::capacity(){
+    return this->capacity_;
+}
+
+template<typename T>
+void vector<T>::reserve(size_type size){
+if (size > max_size()) {
+    throw std::length_error("Requested size exceeds maximum supported size");
+  } 
+if(this->capacity_<size){
+    value_type* temp = new value_type[size];
+    for(size_type i = 0; i<this->size_;++i){
+        temp[i] = data_[i];
+    }
+    delete [] data_;
+    data_ = temp;
+    this -> capacity_ = size;
+}
+}
+
+template<typename T>
+void vector<T>::shrink_to_fit(){
+    if(this->capacity_>this->size_){
+    value_type* temp = new value_type[this->size_];
+    for(size_type i = 0; i<this->size_;++i){
+        temp[i] = data_[i];
+    }
+    delete [] data_;
+    data_ = temp;
+    this -> capacity_ = this->size_;
+}
+}
+
+
 //Допольнительные функции
 template <typename T>
 typename vector<T>::size_type vector<T>::max_size() {
