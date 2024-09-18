@@ -217,12 +217,13 @@ void vector<T>::erase(iterator pos) {
 
 template <typename T>
 void vector<T>::push_back(const_reference value) {
-  if (this->size_ >= this->capacity_)
+  if (this->size_ >= this->capacity_){
     if (this->size_ == 0) {
       reserve(1);
     } else {
       reserve(this->capacity_ * 2);
     }
+  }
   this->data_[size_] = value;
   ++this->size_;
 }

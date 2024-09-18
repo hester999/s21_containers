@@ -44,7 +44,7 @@ size_type capacity();
 void shrink_to_fit();
 
 //Vector Modifiers
-void clear();
+void clear() noexcept;
 iterator insert(iterator pos, const_reference value);
 void erase(iterator pos);
 void push_back(const_reference value);
