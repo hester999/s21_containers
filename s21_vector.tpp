@@ -2,7 +2,7 @@
 
 namespace s21 {
 
-//Vector Member functions
+// Vector Member functions
 template <typename T>
 vector<T>::vector() {
   this->data_ = nullptr;
@@ -27,19 +27,19 @@ vector<T>::vector(size_type n) {
 
 template <typename T>
 vector<T>::vector(std::initializer_list<value_type> const &items) {
-    this->data_ = nullptr;
-    this->size_ = 0;
-    this->capacity_ = 0;
-    size_type n = items.size();
-    if (n > 0) {
-        this->size_ = n;
-        this->capacity_ = n;
-        this->data_ = new value_type[capacity_];
-        size_type i = 0;
-        for (const_iterator it = items.begin(); it != items.end(); ++it, ++i) {
-            this->data_[i] = *it;
-        }
+  this->data_ = nullptr;
+  this->size_ = 0;
+  this->capacity_ = 0;
+  size_type n = items.size();
+  if (n > 0) {
+    this->size_ = n;
+    this->capacity_ = n;
+    this->data_ = new value_type[capacity_];
+    size_type i = 0;
+    for (const_iterator it = items.begin(); it != items.end(); ++it, ++i) {
+      this->data_[i] = *it;
     }
+  }
 }
 
 template <typename T>
@@ -84,121 +84,161 @@ vector<T> &vector<T>::operator=(vector &&a) {
   return *this;
 }
 
-//Vector Element access
-template<typename T>
-typename vector<T>::reference vector<T>::at(size_type pos){ 
-    if( pos >= this->size_){
-        throw std::out_of_range("Index out of range");
-    }
-    return this->data_[pos];
+// Vector Element access
+template <typename T>
+typename vector<T>::reference vector<T>::at(size_type pos) {
+  if (pos >= this->size_) {
+    throw std::out_of_range("Index out of range");
+  }
+  return this->data_[pos];
 }
 
-template<typename T>
-typename vector<T>::reference vector<T>::operator[](size_type pos){
-    return this->data_[pos];
+template <typename T>
+typename vector<T>::reference vector<T>::operator[](size_type pos) {
+  return this->data_[pos];
 }
 
-template<typename T>
-typename vector<T>::const_reference vector<T>::front(){
-    if(this->size_ == 0){
-         throw std::out_of_range("front: vector empty");
-    }
-    return this->data_[0];
+template <typename T>
+typename vector<T>::const_reference vector<T>::front() {
+  if (this->size_ == 0) {
+    throw std::out_of_range("front: vector empty");
+  }
+  return this->data_[0];
 }
 
-template<typename T>
-typename vector<T>::const_reference vector<T>::back(){
-    if(this->size_ == 0){
-         throw std::out_of_range("back: vector empty");
-    }
-    return this->data_[this->size_- 1];
+template <typename T>
+typename vector<T>::const_reference vector<T>::back() {
+  if (this->size_ == 0) {
+    throw std::out_of_range("back: vector empty");
+  }
+  return this->data_[this->size_ - 1];
 }
 
-template<typename T>
-T* vector<T>::data(){
-    return this->data_;
+template <typename T>
+T *vector<T>::data() {
+  return this->data_;
 }
 
-//Vector Iterators
-template<typename T>
-typename vector<T>::iterator vector<T>::begin(){
-    return this->data_;
+// Vector Iterators
+template <typename T>
+typename vector<T>::iterator vector<T>::begin() {
+  return this->data_;
 }
 
-template<typename T>
-typename vector<T>::iterator vector<T>::end(){
-    return (this->data_+this->size_);
+template <typename T>
+typename vector<T>::iterator vector<T>::end() {
+  return (this->data_ + this->size_);
 }
 
-//Vector Capacity
-template<typename T>
-bool vector<T>::empty(){
-    return this->size_ == 0;
+// Vector Capacity
+template <typename T>
+bool vector<T>::empty() {
+  return this->size_ == 0;
 }
 
-template<typename T>
-typename vector<T>::size_type vector<T>::size(){
-    return this->size_;
+template <typename T>
+typename vector<T>::size_type vector<T>::size() {
+  return this->size_;
 }
 
-template<typename T>
-typename vector<T>::size_type vector<T>::capacity(){
-    return this->capacity_;
+template <typename T>
+typename vector<T>::size_type vector<T>::capacity() {
+  return this->capacity_;
 }
 
-template<typename T>
-void vector<T>::reserve(size_type size){
-if (size > max_size()) {
+template <typename T>
+void vector<T>::reserve(size_type size) {
+  if (size > max_size()) {
     throw std::length_error("Requested size exceeds maximum supported size");
-  } 
-if(this->capacity_<size){
-    value_type* temp = new value_type[size];
-    for(size_type i = 0; i<this->size_;++i){
-        temp[i] = data_[i];
+  }
+  if (this->capacity_ < size) {
+    value_type *temp = new value_type[size];
+    for (size_type i = 0; i < this->size_; ++i) {
+      temp[i] = data_[i];
     }
-    delete [] data_;
+    delete[] data_;
     data_ = temp;
-    this -> capacity_ = size;
-}
+    this->capacity_ = size;
+  }
 }
 
-template<typename T>
-void vector<T>::shrink_to_fit(){
-    if(this->capacity_>this->size_){
-    value_type* temp = new value_type[this->size_];
-    for(size_type i = 0; i<this->size_;++i){
-        temp[i] = data_[i];
+template <typename T>
+void vector<T>::shrink_to_fit() {
+  if (this->capacity_ > this->size_) {
+    value_type *temp = new value_type[this->size_];
+    for (size_type i = 0; i < this->size_; ++i) {
+      temp[i] = data_[i];
     }
-    delete [] data_;
+    delete[] data_;
     data_ = temp;
-    this -> capacity_ = this->size_;
-}
+    this->capacity_ = this->size_;
+  }
 }
 
+// Vector Modifiers
+template <typename T>
+void vector<T>::clear() noexcept {
+  this->size_ = 0;
+}
 
-//Vector Modifiers
+template <typename T>
+typename vector<T>::iterator vector<T>::insert(iterator pos,
+                                               const_reference value) {
+  if (pos < begin() || pos >= end()) {
+    throw std::out_of_range("Iterator out of bounds");
+  }
+  size_type index = pos - data_;
+  if (this->size_ >= this->capacity_) {
+    if (this->size_ == 0) {
+      reserve(1);
+    } else {
+      reserve(this->capacity_ * 2);
+    }
+  }
+  for (size_type i = size_; i > index; --i) {
+    this->data_[i] = std::move(this->data_[i - 1]);
+  }
+  this->data_[index] = value;
+  ++this->size_;
+  return (this->data_ + index);
+}
+
+template <typename T>
+void vector<T>::erase(iterator pos) {
+  if (pos < begin() || pos >= end()) {
+    throw std::out_of_range("Iterator out of bounds");
+  }
+  size_type index = pos - data_;
+  for (size_type i = index; i < this->size_ - 1; ++i) {
+    this->data_[i] = std::move(this->data_[i + 1]);
+  }
+  --this->size_;
+}
+
+template <typename T>
+void vector<T>::push_back(const_reference value) {
+  if (this->size_ >= this->capacity_)
+    if (this->size_ == 0) {
+      reserve(1);
+    } else {
+      reserve(this->capacity_ * 2);
+    }
+  this->data_[size_] = value;
+  ++this->size_;
+}
+
+template <typename T>
+void vector<T>::pop_back() {
+  --this->size_;
+}
+
 template<typename T>
-void vector<T>::clear(){
-    for(size_type i = 0; i < this->size_; ++i){
-        this->data_[i].~T();
-    }
-    this->size_ = 0;
+void vector<T>::swap(vector& other){
+    std::swap(this->data_, other.data_);
+    std::swap(this->size_, other.size_);
+    std::swap(this->capacity_, other.capacity_);
 }
-
-template<typename T>
-typename vector<T>::iterator vector<T>::insert(iterator pos, const_reference value){
-
-    size_type index = pos - data_;
-    if(this->size_ >= this->capacity_){
-        reserve(this->capacity_*2);
-    }
-    for(size_type i = size_; i>index;--i){
-        this->data_[i] = std::move(this->data_[i-1]);
-    }
-    this->data_[index] = value;
-}
-
-//Допольнительные функции
+// Допольнительные функции
 template <typename T>
 typename vector<T>::size_type vector<T>::max_size() {
   return std::numeric_limits<size_type>::max() / sizeof(value_type);
