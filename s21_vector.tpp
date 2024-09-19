@@ -217,7 +217,7 @@ void vector<T>::erase(iterator pos) {
 
 template <typename T>
 void vector<T>::push_back(const_reference value) {
-  if (this->size_ >= this->capacity_){
+  if (this->size_ >= this->capacity_) {
     if (this->size_ == 0) {
       reserve(1);
     } else {
@@ -233,11 +233,11 @@ void vector<T>::pop_back() {
   --this->size_;
 }
 
-template<typename T>
-void vector<T>::swap(vector& other){
-    std::swap(this->data_, other.data_);
-    std::swap(this->size_, other.size_);
-    std::swap(this->capacity_, other.capacity_);
+template <typename T>
+void vector<T>::swap(vector &other) {
+  std::swap(this->data_, other.data_);
+  std::swap(this->size_, other.size_);
+  std::swap(this->capacity_, other.capacity_);
 }
 // Допольнительные функции
 template <typename T>
